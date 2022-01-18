@@ -10,8 +10,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,17 +30,18 @@ public class ControlPannel extends JPanel {
     Viewer viewer;
     MyFlame myflame;
     Flame flame;
-    JSlider slider_spark, slider_cool, slider_velocity;
     Events e = new Events();
-    JLabel etiquetaTitulo, controlPrograma, valorSPARK, valorCOOL, valorVELOCITY;
-    JButton boton1, boton2;
+    JSlider slider_spark, slider_cool, slider_velocity;
+    JLabel etiquetaTitulo, controlPrograma, valorSPARK, valorCOOL, valorVELOCITY,
+            fuegoNormal, fuegoGris, fuegoSepia;
+    JButton startButton, pauseButton, normalButton, grisButton, sepiaButton;
 
     public ControlPannel(MyFlame myflame) {
         this.myflame = myflame;
         this.setBackground(Color.decode("#D7D7A8"));
         this.setLayout(null);
         inicializarComponentes();
-        this.setPreferredSize(new Dimension(450,450));
+        this.setPreferredSize(new Dimension(450, 450));
     }
 
     private void inicializarComponentes() {
@@ -73,6 +76,21 @@ public class ControlPannel extends JPanel {
         valorVELOCITY.setBounds(10, 335, 150, 50);
         valorVELOCITY.setFont(new Font("Serif", Font.PLAIN, 20));
         this.add(valorVELOCITY);
+
+        fuegoNormal = new JLabel("Fuego Normal");
+        fuegoNormal.setBounds(50, 400, 150, 50);
+        fuegoNormal.setFont(new Font("Serif", Font.PLAIN, 20));
+        this.add(fuegoNormal);
+
+        fuegoGris = new JLabel("Fuego Gris");
+        fuegoGris.setBounds(260, 400, 100, 50);
+        fuegoGris.setFont(new Font("Serif", Font.PLAIN, 20));
+        this.add(fuegoGris);
+
+        fuegoSepia = new JLabel("Fuego Sepia");
+        fuegoSepia.setBounds(440, 400, 100, 50);
+        fuegoSepia.setFont(new Font("Serif", Font.PLAIN, 20));
+        this.add(fuegoSepia);
     }
 
     private void addSlider() {
@@ -93,6 +111,7 @@ public class ControlPannel extends JPanel {
         this.add(slider_spark);
 
         slider_cool = new JSlider(JSlider.HORIZONTAL, 0, 200, myflame.getCOOL());
+        slider_spark.setToolTipText("Valor_Puntos_Frios");
         //Lineas Grandes
         slider_cool.setMajorTickSpacing(25);
         //Lineas Pequeñas
@@ -106,6 +125,7 @@ public class ControlPannel extends JPanel {
         this.add(slider_cool);
 
         slider_velocity = new JSlider(JSlider.HORIZONTAL, 0, 300, myflame.getVELOCITY());
+        slider_spark.setToolTipText("Valor_Velocidad");
         //Lineas Grandes
         slider_velocity.setMajorTickSpacing(50);
         //Lineas Pequeñas
@@ -114,26 +134,62 @@ public class ControlPannel extends JPanel {
         slider_velocity.setPaintTicks(true);
         //Pintamos Numeros
         slider_velocity.setPaintLabels(true);
+        slider_velocity.setInverted(true);
         slider_velocity.setBounds(165, 325, 250, 45);
         slider_velocity.addChangeListener(e);
         this.add(slider_velocity);
     }
 
     private void addButton() {
-        boton1 = new JButton("Start");
-        boton1.setBounds(165, 115, 75, 25);
-        boton1.setEnabled(true);
-        boton1.addActionListener(e);
-        boton1.setActionCommand("Start");
-        this.add(boton1);
+        startButton = new JButton("Start");
+        startButton.setBounds(165, 115, 75, 25);
+        startButton.setEnabled(true);
+        startButton.addActionListener(e);
+        startButton.setActionCommand("Start");
+        this.add(startButton);
 
-        boton2 = new JButton("Pause");
-        boton2.setBounds(245, 115, 75, 25);
-        boton2.setEnabled(true);
-        boton2.addActionListener(e);
-        boton2.setActionCommand("Pause");
-        this.add(boton2);
+        pauseButton = new JButton("Pause");
+        pauseButton.setBounds(245, 115, 75, 25);
+        pauseButton.setEnabled(true);
+        pauseButton.addActionListener(e);
+        pauseButton.setActionCommand("Pause");
+        this.add(pauseButton);
 
+        normalButton = new JButton();
+        normalButton.setBounds(10, 450, 200, 200);
+        normalButton.setBackground(Color.decode("#D7D7A8"));
+        normalButton.setBorder(null);
+        ImageIcon fn = new ImageIcon("src/main/java/Imagenes/fuego_normal.png");
+        normalButton.setIcon(new ImageIcon(fn.getImage().getScaledInstance(
+                normalButton.getWidth(), normalButton.getHeight(),
+                Image.SCALE_SMOOTH)));
+        normalButton.addActionListener(e);
+        normalButton.setActionCommand("Normal");
+        this.add(normalButton);
+
+        grisButton = new JButton();
+        grisButton.setBounds(200, 450, 200, 200);
+        grisButton.setBackground(Color.decode("#D7D7A8"));
+        grisButton.setBorder(null);
+        ImageIcon fg = new ImageIcon("src/main/java/Imagenes/fuego_gris.png");
+        grisButton.setIcon(new ImageIcon(fg.getImage().getScaledInstance(
+                grisButton.getWidth(), grisButton.getHeight(),
+                Image.SCALE_SMOOTH)));
+        grisButton.addActionListener(e);
+        grisButton.setActionCommand("Gris");
+        this.add(grisButton);
+
+        sepiaButton = new JButton();
+        sepiaButton.setBounds(390, 450, 200, 200);
+        sepiaButton.setBackground(Color.decode("#D7D7A8"));
+        sepiaButton.setBorder(null);
+        ImageIcon fs = new ImageIcon("src/main/java/Imagenes/fuego_sepia.png");
+        sepiaButton.setIcon(new ImageIcon(fs.getImage().getScaledInstance(
+                sepiaButton.getWidth(), sepiaButton.getHeight(),
+                Image.SCALE_SMOOTH)));
+        sepiaButton.addActionListener(e);
+        sepiaButton.setActionCommand("Sepia");
+        this.add(sepiaButton);
     }
 
     private class Events implements ChangeListener, ActionListener {
@@ -155,8 +211,22 @@ public class ControlPannel extends JPanel {
                     myflame.startThread();
                     break;
             }
+            if (e.getSource()==normalButton) {
+                myflame.viewer.setvGris(false);
+                myflame.viewer.setvSepia(false);
+                myflame.viewer.setvNormal(true);
 
+            }
+            if (e.getSource()==grisButton) {
+                myflame.viewer.setvNormal(false);
+                myflame.viewer.setvSepia(false);
+                myflame.viewer.setvGris(true);
+            } 
+            if(e.getSource()==sepiaButton) {
+                myflame.viewer.setvNormal(false);
+                myflame.viewer.setvGris(false);
+                myflame.viewer.setvSepia(true);
+            }
         }
-
     }
 }

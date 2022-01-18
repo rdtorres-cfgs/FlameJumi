@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * @author Roberto
  */
 public class Flame extends BufferedImage implements Runnable {
-    
+
     private FlamePalette flamePalette;
     BufferedImage imagen = null;
     private int[][] matrixFuego;
@@ -68,7 +68,7 @@ public class Flame extends BufferedImage implements Runnable {
         System.out.println("Sparks");
         for (int i = 0; i < matrixFuego.length; i++) {
             int aux = (int) (Math.random() * 200);
-            if (aux >= SPARK) {
+            if (aux <= SPARK) {
                 matrixFuego[i][matrixFuego[0].length - 1] = 255;
             }
         }
@@ -83,13 +83,11 @@ public class Flame extends BufferedImage implements Runnable {
                 matrixFuego[i][j] = (matrixFuego[i][j + 1]
                         + matrixFuego[i + 1][j + 1]
                         + matrixFuego[i][j]
-                        + matrixFuego[i - 1][j + 1]) / 4 + increment;
+                        + matrixFuego[i - 1][j + 1]) / 4;
             }
         }
     }
 
-                
-                
     //Creamos los puntos fríos
     public void createCool() {
         System.out.println("Cool Points");
@@ -120,7 +118,7 @@ public class Flame extends BufferedImage implements Runnable {
                 Thread.sleep(VELOCITY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }catch(NullPointerException e){
+            } catch (NullPointerException e) {
             }
             if (activeThread) {
                 this.createSpark();
